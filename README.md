@@ -4,7 +4,7 @@ File-Based Journaler using TPL Dataflow
 
 ### Introduction
 
-Spike of a simple journaling component conceptionally similar to an [EventStore](https://www.geteventstore.com/) or just the [Log](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying) which is able to
+Spike of a simple journaling component conceptionally similar to a persistent [Log](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying) or [EventStore](https://www.geteventstore.com/) which is able to
 
 - persist any (with Json.NET serializable) object to the filesystem in the form of a timestamped event and
 - replay all these persisted events for reprocessing.
