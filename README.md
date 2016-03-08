@@ -1,6 +1,6 @@
 # DataflowJournaler
 
-File-Based Journaler using TPL Dataflow
+File-based Journaler using TPL Dataflow
 
 ### Introduction
 
@@ -14,7 +14,7 @@ Spike of a simple journaling component conceptionally similar to a persistent [L
 The current design focuses on simplicity and correctness. The implementation largely depends on
 
 - [TPL Dataflow](https://msdn.microsoft.com/en-us/library/hh228603(v=vs.110).aspx) with its asynchronous data processing pipeline to model an actor based system and
-- [Json.NET](http://www.newtonsoft.com/json) for file-based persistance in a simple, human readable format.
+- [Json.NET](http://www.newtonsoft.com/json) for file-based persistence in a simple, human readable format.
 
 ### Usage
 
