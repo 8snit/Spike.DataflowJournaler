@@ -1,13 +1,13 @@
 # DataflowJournaler
 
-a file-based journaler engine using TPL Dataflow
+a file-based journaling component using TPL Dataflow
 
 ### Introduction
 
-A simple journaling component (aka [EventStore](https://www.geteventstore.com/) or just [Log](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying) able to
+Spike of a simple component conceptionally similar to an [EventStore](https://www.geteventstore.com/) or just the [Log](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying) which is able to
 
-- persist any with Json.NET serializable object to the filesystem and
-- replay all persisted objects within a certain time range.
+- persist any (with Json.NET serializable) object to the filesystem in the form of a timebased event and
+- replay all these persisted events within a certain time range.
 
 ### This Project 
 
@@ -15,6 +15,29 @@ The current design focuses on simplicity and correctness. The implementation lar
 
 - [TPL Dataflow](https://msdn.microsoft.com/en-us/library/hh228603(v=vs.110).aspx) with its asynchronous data processing pipeline to model an actor based system and
 - [Json.NET](http://www.newtonsoft.com/json) for file-based persistance in a simple, human readable format.
+
+### Usage
+
+The obligatory [Hello World](https://github.com/8snit/Spike.DataflowJournaler/blob/192386e2e4ee1b2a5694bfc15281f1e196b21418/Spike.DataflowJournaler.Tests/SmokeTests.cs#L27-L41) example
+
+```c#
+	using (var journal = new Journal(new JournalConfig
+    {
+        Directory = TestDirectory
+    }))
+    {
+        await journal.AddAsync("Hello");
+        await journal.AddAsync(" ");
+        await journal.AddAsync("World");
+        await journal.AddAsync("!");
+
+        var message = string.Empty;
+        var actionBlock = new ActionBlock<string>(s => { message += s; });
+        journal.Replay<string>()(actionBlock);
+        actionBlock.Completion.Wait();
+        Assert.AreEqual("Hello World!", message);
+        }
+```
 
 ### Feedback
 Welcome! Just raise an issue or send a pull request.
