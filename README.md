@@ -1,6 +1,6 @@
 # DataflowJournaler
 
-a file-based Journaler using TPL Dataflow
+File-Based Journaler using TPL Dataflow
 
 ### Introduction
 
@@ -18,7 +18,7 @@ The current design focuses on simplicity and correctness. The implementation lar
 
 ### Usage
 
-The obligatory [Hello World](https://github.com/8snit/Spike.DataflowJournaler/blob/192386e2e4ee1b2a5694bfc15281f1e196b21418/Spike.DataflowJournaler.Tests/SmokeTests.cs#L27-L41) example
+The obligatory [Hello World](https://github.com/8snit/Spike.DataflowJournaler/blob/192386e2e4ee1b2a5694bfc15281f1e196b21418/Spike.DataflowJournaler.Tests/SmokeTests.cs#L27-L41) example:
 
 ```c#
 	using (var journal = new Journal(new JournalConfig
