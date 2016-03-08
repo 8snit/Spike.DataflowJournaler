@@ -1,13 +1,13 @@
 # DataflowJournaler
 
-a file-based journaling component using TPL Dataflow
+a file-based Journaler using TPL Dataflow
 
 ### Introduction
 
-Spike of a simple component conceptionally similar to an [EventStore](https://www.geteventstore.com/) or just the [Log](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying) which is able to
+Spike of a simple journaling component conceptionally similar to an [EventStore](https://www.geteventstore.com/) or just the [Log](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying) which is able to
 
-- persist any (with Json.NET serializable) object to the filesystem in the form of a timebased event and
-- replay all these persisted events within a certain time range.
+- persist any (with Json.NET serializable) object to the filesystem in the form of a timestamped event and
+- replay all these persisted events for reprocessing.
 
 ### This Project 
 
@@ -36,7 +36,7 @@ The obligatory [Hello World](https://github.com/8snit/Spike.DataflowJournaler/bl
         journal.Replay<string>()(actionBlock);
         actionBlock.Completion.Wait();
         Assert.AreEqual("Hello World!", message);
-        }
+    }
 ```
 
 ### Feedback
