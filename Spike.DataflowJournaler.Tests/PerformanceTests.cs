@@ -24,10 +24,10 @@ namespace Spike.DataflowJournaler.Tests
         // number of buckets, size of bucket, degree of parallelism, size of batch
         public static IEnumerable<Tuple<int, int, int, int>> TestCases()
         {
-            var batchSizes = new[] {1, 5, 50};
-            var degreesOfParallelism = new[] {1, 2, 4};
-            var bucketSizes = new[] {1, 10, 100, 1000};
-            var totals = new[] {1000, 10000, 100000};
+            var batchSizes = new[] { 5, 50 };
+            var degreesOfParallelism = new[] { 10 };
+            var bucketSizes = new[] { 10, 100, 1000};
+            var totals = new[] { 1000, 100000};
 
             foreach (var total in totals)
             {
@@ -51,12 +51,7 @@ namespace Spike.DataflowJournaler.Tests
         public void TestPerformanceBatchSize(Tuple<int, int, int, int> testCase)
         {
             var total = (long) testCase.Item1*(testCase.Item1 + 1)/2*testCase.Item2;
-            using (var journal = new Journal(new JournalConfig
-            {
-                Directory = TestDirectory,
-                CommandBatchSize = testCase.Item4,
-                CommandBatchTimeoutInMilliseconds = 10
-            }))
+            using (var journal = new Journal(TestDirectory, batchSize: testCase.Item4))
             {
                 var addingElapsedByThreadId = new ConcurrentDictionary<long, List<TimeSpan>>();
                 Parallel.For(1, testCase.Item1 + 1, new ParallelOptions

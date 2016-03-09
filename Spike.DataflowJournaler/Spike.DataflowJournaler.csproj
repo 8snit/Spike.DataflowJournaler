@@ -49,14 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="JournalConfig.cs" />
     <Compile Include="JournalStatistic.cs" />
     <Compile Include="StopWatchUtil.cs" />
     <Compile Include="CustomSerializationBinder.cs" />
     <Compile Include="Journalable.cs" />
     <Compile Include="Journal.cs" />
     <Compile Include="JournalFile.cs" />
-    <Compile Include="JournalWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="JournalPersistor.cs" />
   </ItemGroup>

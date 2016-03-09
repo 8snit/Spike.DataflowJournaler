@@ -7,7 +7,9 @@ namespace Spike.DataflowJournaler
     {
         object Target { get; }
 
-        WriteOnceBlock<DateTimeOffset> TimestampBlock { get; }
+        DateTimeOffset Timestamp { set; }
+
+        int Index { set; }
     }
 
     public class Journalable : IJournalable
@@ -19,8 +21,21 @@ namespace Spike.DataflowJournaler
             TimestampBlock = timestampBlock;
         }
 
+        public WriteOnceBlock<DateTimeOffset> TimestampBlock { get; }
+
         public object Target { get; }
 
-        public WriteOnceBlock<DateTimeOffset> TimestampBlock { get; }
+        public DateTimeOffset Timestamp
+        {
+            set { TimestampBlock.Post(value); }
+        }
+
+        public int Index
+        {
+            set
+            {
+                /* not used currently */
+            }
+        }
     }
 }
