@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks.Dataflow;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -50,9 +49,8 @@ namespace Spike.DataflowJournaler.Tests
             DateTimeOffset? lastTimestamp = null, Func<Transaction, bool> predicate = null)
         {
             var total = 0L;
-            var actionBlock = new ActionBlock<Transaction>(transaction => { total = transaction.Execute(total); });
-            journal.Replay(firstTimestamp, lastTimestamp, predicate)(actionBlock);
-            actionBlock.Completion.Wait();
+            journal.Replay(firstTimestamp, lastTimestamp, predicate)
+                .Subscribe(transaction => total = transaction.Execute(total));
             return total;
         }
     }

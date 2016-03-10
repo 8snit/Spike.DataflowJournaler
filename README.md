@@ -1,6 +1,8 @@
 # DataflowJournaler
 
-File-based Journaler using TPL Dataflow
+File-based Journaler implemented with TPL Dataflow
+
+Note: an implementation with Akka.NET is available [here](https://github.com/8snit/Spike.AkkaJournaler)
 
 ### Introduction
 
@@ -18,13 +20,10 @@ The current design focuses on simplicity and correctness. The implementation lar
 
 ### Usage
 
-The obligatory [Hello World](https://github.com/8snit/Spike.DataflowJournaler/blob/192386e2e4ee1b2a5694bfc15281f1e196b21418/Spike.DataflowJournaler.Tests/SmokeTests.cs#L27-L41) example:
+The obligatory [Hello World](https://github.com/8snit/Spike.DataflowJournaler/blob/9cdf8446c18390e26bf3be7bd7428cbd98fb952f/Spike.DataflowJournaler.Tests/SmokeTests.cs#L67-L79) example:
 
 ```c#
-	using (var journal = new Journal(new JournalConfig
-    {
-        Directory = TestDirectory
-    }))
+	using (var journal = new Journal(TestDirectory))
     {
         await journal.AddAsync("Hello");
         await journal.AddAsync(" ");
@@ -32,9 +31,7 @@ The obligatory [Hello World](https://github.com/8snit/Spike.DataflowJournaler/bl
         await journal.AddAsync("!");
 
         var message = string.Empty;
-        var actionBlock = new ActionBlock<string>(s => { message += s; });
-        journal.Replay<string>()(actionBlock);
-        actionBlock.Completion.Wait();
+        journal.Replay<string>().Subscribe(item => message += item);
         Assert.AreEqual("Hello World!", message);
     }
 ```

@@ -1,7 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Threading.Tasks.Dataflow;
 using NUnit.Framework;
 
 namespace Spike.DataflowJournaler.Tests
@@ -72,9 +72,7 @@ namespace Spike.DataflowJournaler.Tests
                 await journal.AddAsync("!");
 
                 var message = string.Empty;
-                var actionBlock = new ActionBlock<string>(s => { message += s; });
-                journal.Replay<string>()(actionBlock);
-                actionBlock.Completion.Wait();
+                journal.Replay<string>().Subscribe(item => message += item);
                 Assert.AreEqual("Hello World!", message);
             }
         }

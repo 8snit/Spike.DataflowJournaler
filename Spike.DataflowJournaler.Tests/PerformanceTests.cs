@@ -24,10 +24,10 @@ namespace Spike.DataflowJournaler.Tests
         // number of buckets, size of bucket, degree of parallelism, size of batch
         public static IEnumerable<Tuple<int, int, int, int>> TestCases()
         {
-            var batchSizes = new[] { 5, 50 };
-            var degreesOfParallelism = new[] { 10 };
-            var bucketSizes = new[] { 10, 100, 1000};
-            var totals = new[] { 1000, 100000};
+            var batchSizes = new[] {5, 50};
+            var degreesOfParallelism = new[] {10};
+            var bucketSizes = new[] {10, 100, 1000};
+            var totals = new[] {1000, 100000};
 
             foreach (var total in totals)
             {
@@ -94,7 +94,7 @@ namespace Spike.DataflowJournaler.Tests
                                                addingElapsedByThreadId.Values.Sum(
                                                    v => v.Sum(timeSpan => timeSpan.TotalMilliseconds)));
                         streamWriter.WriteLine("computingMS=" + computingElapsed.TotalMilliseconds);
-                        journal.Statistic.Dump(streamWriter.WriteLine);
+                        journal.DumpStatistic(streamWriter.WriteLine);
                     }
                 }
             }
